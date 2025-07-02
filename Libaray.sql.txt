@@ -1,0 +1,51 @@
+ Student Table
+CREATE TABLE Student (
+    StudentID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Department VARCHAR(50),
+    Email VARCHAR(100),
+    Phone VARCHAR(20)
+);
+
+-- Book Table
+CREATE TABLE Book (
+    BookID INT PRIMARY KEY,
+    Title VARCHAR(100),
+    Author VARCHAR(100),
+    Publisher VARCHAR(100),
+    ISBN VARCHAR(20),
+    Category VARCHAR(50),
+    TotalCopies INT,
+    AvailableCopies INT
+);
+
+-- Librarian Table
+CREATE TABLE Librarian (
+    LibrarianID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Email VARCHAR(100),
+    Phone VARCHAR(20)
+);
+
+-- Issue Table
+CREATE TABLE Issue (
+    IssueID INT PRIMARY KEY,
+    StudentID INT,
+    BookID INT,
+    LibrarianID INT,
+    IssueDate DATE,
+    DueDate DATE,
+    ReturnDate DATE,
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+    FOREIGN KEY (BookID) REFERENCES Book(BookID),
+    FOREIGN KEY (LibrarianID) REFERENCES Librarian(LibrarianID)
+);
+
+-- Fine Table
+CREATE TABLE Fine (
+    FineID INT PRIMARY KEY,
+    IssueID INT,
+    Amount DECIMAL(10,2),
+    Status VARCHAR(20), -- e.g., 'Paid', 'Unpaid'
+    FOREIGN KEY (IssueID) REFERENCES Issue(IssueID)
+);
